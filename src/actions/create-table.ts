@@ -10,10 +10,21 @@ async function createTable() {
     )`;
 	const result = await client.query(createTableQuery);
 	console.log(result);
+
+	const createAddressQuery = `CREATE TABLE address (
+
+		id SERIAL PRIMARY KEY,
+		user_id INTEGER NOT NULL,
+		city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+		FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE	)`;
+
+	const address = await client.query(createAddressQuery);
+	console.log(address);
 }
 
 createTable()
 	.then(() => {
-		console.log(`table was created successfully`);
+		console.log(`table and address were created successfully`);
 	})
 	.catch((e) => console.log(e));
